@@ -525,31 +525,40 @@ public class DataLoadDiasend extends DataLoadBase
 
 	private void loadDBResultEntriesFromCGMTab()
 	{
-		try 
-		{
+		// try 
+		// {
 			HSSFSheet sheet = getNamedWorksheet(m_CGMTabName); // m_ExcelWorkBook.getSheet(m_InsulinTabName);
+			m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "10");
 			HSSFRow row;
 
 			//int rows = sheet.getPhysicalNumberOfRows(); // No of rows
+			m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "11");
 			int rows = sheet.getLastRowNum();
+			m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "12");
 
 			int cols = 0; // No of columns
+			m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "13");
 			int tmp = 0;
+			m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "14");
 
 			// This trick ensures that we get the data properly even if it doesn't start from first few rows
 			for(int i = 0; i < 10 || i < rows; i++) 
 			{
 				row = sheet.getRow(i);
+				m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "16");
 				if(row != null) 
 				{
 					tmp = sheet.getRow(i).getPhysicalNumberOfCells();
+					m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "18");
 					if(tmp > cols) cols = tmp;
+					m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "19");
 				}
 			}
 
 			for(int r = 0; r < rows; r++) 
 			{
 				row = sheet.getRow(r);
+				m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "21");
 
 				if (r+1 == m_CGMRowDataHeaders)
 				{
@@ -558,16 +567,17 @@ public class DataLoadDiasend extends DataLoadBase
 				else if (r+1 >= m_CGMRowDataStart)
 				{
 					DBResultEntryDiasend res = new DBResultEntryDiasend(row);
+					m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "24");
 						rawEntryResultsFromDB.add(res);
-//						m_Logger.log(Level.FINEST, "<"+this.getClass().getName()+">" + "Result added for " + res.toString());
-						m_Logger.log(Level.FINEST, "<DataLoadDiasend>" + "Result added for " + res.toString());
+//						m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Result added for " + res.toString());
+						m_Logger.log(Level.SEVERE, "<DataLoadDiasend>" + "Result added for " + res.toString());
 				}
 			}
-		} 
-		catch(Exception ioe) 
-		{
-			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + " Exception loading Insulin tab " + ioe.getMessage());
-		}
+		// } 
+		// catch(Exception ioe) 
+		// {
+		// 	m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + " Exception loading Insulin tab " + ioe.getMessage());
+		// }
 		
 		// Having loaded all the raw values from file, now need to traverse the collection
 		// and determine other attributes like direction, etc..
@@ -731,7 +741,7 @@ public class DataLoadDiasend extends DataLoadBase
 					if (res.isValid())
 					{
 						rawResultsFromDB.add(res);
-						m_Logger.log(Level.FINEST, "<"+this.getClass().getName()+">" + "Result added for " + res.toString());
+						m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Result added for " + res.toString());
 					}
 
 				}
@@ -746,31 +756,45 @@ public class DataLoadDiasend extends DataLoadBase
 
 	private void loadDBResultsFromInsulinTab()
 	{
-		try 
-		{
+		// try 
+		// {
 			HSSFSheet sheet = getNamedWorksheet(m_InsulinTabName); // m_ExcelWorkBook.getSheet(m_InsulinTabName);
+m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "1");
+
 			HSSFRow row;
 
 			//int rows = sheet.getPhysicalNumberOfRows(); // No of rows
+m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "2");
+
 			int rows = sheet.getLastRowNum();
+m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "3");
+
 
 			int cols = 0; // No of columns
+m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "4");
 			int tmp = 0;
+m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "5");
 
 			// This trick ensures that we get the data properly even if it doesn't start from first few rows
 			for(int i = 0; i < 10 || i < rows; i++) 
+
 			{
 				row = sheet.getRow(i);
+	m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "7");
 				if(row != null) 
 				{
 					tmp = sheet.getRow(i).getPhysicalNumberOfCells();
+		m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "8");
 					if(tmp > cols) cols = tmp;
+		m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "9");
 				}
 			}
 
 			for(int r = 0; r < rows; r++)
+
 			{
 				row = sheet.getRow(r);
+	m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "11");
 
 				if (r+1 == m_InsulinRowDataHeaders)
 				{
@@ -779,6 +803,7 @@ public class DataLoadDiasend extends DataLoadBase
 				else if (r+1 >= m_InsulinRowDataStart)
 				{
 					DBResultDiasend res = new DBResultDiasend(row, true);
+		m_Logger.log(Level.SEVERE, "DEBUG: Reached " + "13");
 					if (res.isValid())
 					{
 						// Check if this is a Basal rate
@@ -788,16 +813,16 @@ public class DataLoadDiasend extends DataLoadBase
 							// If this is a temp basal then we do keep it.
 						}
 						rawResultsFromDB.add(res);
-						m_Logger.log(Level.FINEST, "<"+this.getClass().getName()+">" + "Result added for " + res.toString());
+						m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Result added for " + res.toString());
 					}
 
 				}
 			}
-		} 
-		catch(Exception ioe) 
-		{
-			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + " Exception loading Insulin tab " + ioe.getMessage());
-		}
+		// } 
+		// catch(Exception ioe) 
+		// {
+		// 	m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + " Exception loading Insulin tab " + ioe.getMessage());
+		// }
 	}
 
 /*	private void sortDBResults()
