@@ -66,6 +66,8 @@ public class DBResultEntryDiasend extends DBResultEntry
 						}
 					}
 				}
+				m_Logger.log(Level.SEVERE, "<dbgresultentrydiasend> " + "initializeCGMHeaders - indexes = " 
+					+ Integer.toString(m_CGMTimeIndex) + "," + Integer.toString(m_CGMBGIndex));
 				m_CGMIndexesInitialized = true;
 			}
 		}

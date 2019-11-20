@@ -691,7 +691,7 @@ public class CommonUtils
 	{
 		Double result = null;
 		HSSFCell cell = row.getCell(index);
-		if (cell != null && (cell.getCellType() != HSSFCell.CELL_TYPE_BLANK))
+		if (cell != null && (cell.getCellType() != HSSFCell.CELL_TYPE_BLANK) && (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)) // JOR add last cond
 		{
 			// David 27 Apr 2016
 			// Get an exception just with diasend when updating the grid.
@@ -703,6 +703,11 @@ public class CommonUtils
 		}
 		else
 		{
+			if(cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
+			{
+				m_Logger.log(Level.SEVERE, "<CommonUtils>" + "getDoubleCellValue - Got cell: " + cell.getStringCellValue());
+			}
+			m_Logger.log(Level.SEVERE, "<CommonUtils>" + "getDoubleCellValue - Got type: " + Integer.toString(cell.getCellType()));
 			// Ensure result gets allocated even if cell is blank
 			result = new Double(0);
 		}

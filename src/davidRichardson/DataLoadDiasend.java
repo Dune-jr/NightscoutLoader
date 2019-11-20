@@ -44,8 +44,8 @@ public class DataLoadDiasend extends DataLoadBase
 	// final static int m_CGMRowDataHeaders = 2;
 	// final static int m_CGMRowDataStart   = 3;
 	// JOR: !!! FIX Diasend here!
-	final static int m_CGMRowDataHeaders = 4;
-	final static int m_CGMRowDataStart   = 5;
+	final static int m_CGMRowDataHeaders = 5;
+	final static int m_CGMRowDataStart   = 6;
 		
 	final static String m_SettingsBasalStartString      = "Basal profiles";
 	final static String m_SettingsIntervalString        = "Interval";
@@ -553,17 +553,25 @@ public class DataLoadDiasend extends DataLoadBase
 			for(int r = 0; r < rows; r++) 
 			{
 				row = sheet.getRow(r);
+				if(row != null)
+				{
+					m_Logger.log(Level.SEVERE, "<DataLoadDiasend>" + "r = " + Integer.toString(r) + "/");
 
-				if (r+1 == m_CGMRowDataHeaders)
-				{
-					DBResultEntryDiasend.initializeCGMHeaders(row);
+					if (r+1 == m_CGMRowDataHeaders)
+					{
+						if(row.getCell(1) != null)
+							m_Logger.log(Level.SEVERE, "hmmm... row[1]=" + row.getCell(1).toString()); // + "," + row.getCell(1).toString());
+						DBResultEntryDiasend.initializeCGMHeaders(row);
+					}
+					else if (r+1 >= m_CGMRowDataStart)
+					{
+						if(row.getCell(1) != null)
+							m_Logger.log(Level.SEVERE, "row[1]=" + row.getCell(1).toString()); // + "," + row.getCell(1).toString());
+						DBResultEntryDiasend res = new DBResultEntryDiasend(row);
+							rawEntryResultsFromDB.add(res);
+	//						m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Result added for " + res.toString());
+							m_Logger.log(Level.SEVERE, "<DataLoadDiasend>" + "Result added for " + res.toString());
 				}
-				else if (r+1 >= m_CGMRowDataStart)
-				{
-					DBResultEntryDiasend res = new DBResultEntryDiasend(row);
-						rawEntryResultsFromDB.add(res);
-//						m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Result added for " + res.toString());
-						m_Logger.log(Level.SEVERE, "<DataLoadDiasend>" + "Result added for " + res.toString());
 				}
 			}
 		// } 
