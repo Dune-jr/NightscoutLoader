@@ -140,37 +140,37 @@ public class DataLoadDiasend extends DataLoadBase
 		inferTrendsFromCGMResultEntries();
 		
 		// For debug, drop a list of all results so far
-		m_Logger.log(Level.FINE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results BEFORE load & Sort");
+		m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results BEFORE load & Sort");
 		for (DBResult res : rawResultsFromDB)
 		{
-			m_Logger.log(Level.FINE, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
+			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
 		}
 
 		// For debug, drop a list of all results so far
-		m_Logger.log(Level.FINE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER load & Sort");
+		m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER load & Sort");
 		for (DBResult res : rawResultsFromDB)
 		{
-			m_Logger.log(Level.FINE, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
+			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
 		}
 
 		locateTempBasals();
 
 
 		// For debug, drop a list of all results so far
-		m_Logger.log(Level.FINE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER Locating Temp Basals");
+		m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER Locating Temp Basals");
 		for (DBResult res : rawResultsFromDB)
 		{
-			m_Logger.log(Level.FINE, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
+			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
 		}
 
 
 		convertDBResultsToTreatments();
 
 		// For debug, drop a list of all results so far
-		m_Logger.log(Level.FINE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER conversion");
+		m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER conversion");
 		for (DBResult res : resultTreatments)
 		{
-			m_Logger.log(Level.FINE, "<"+this.getClass().getName()+">" + "  " + res.toString());
+			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "  " + res.toString());
 		}
 
 		// Now close the workbook
