@@ -140,37 +140,37 @@ public class DataLoadDiasend extends DataLoadBase
 		inferTrendsFromCGMResultEntries();
 		
 		// For debug, drop a list of all results so far
-		m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results BEFORE load & Sort");
+		m_Logger.log(Level.INFO, "<"+this.getClass().getName()+">" + "Summary of Diasend Results BEFORE load & Sort");
 		for (DBResult res : rawResultsFromDB)
 		{
-			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
+			m_Logger.log(Level.INFO, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
 		}
 
 		// For debug, drop a list of all results so far
-		m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER load & Sort");
+		m_Logger.log(Level.INFO, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER load & Sort");
 		for (DBResult res : rawResultsFromDB)
 		{
-			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
+			m_Logger.log(Level.INFO, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
 		}
 
 		locateTempBasals();
 
 
 		// For debug, drop a list of all results so far
-		m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER Locating Temp Basals");
+		m_Logger.log(Level.INFO, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER Locating Temp Basals");
 		for (DBResult res : rawResultsFromDB)
 		{
-			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
+			m_Logger.log(Level.INFO, "<"+this.getClass().getName()+">" + "  " + res.rawToString());
 		}
 
 
 		convertDBResultsToTreatments();
 
 		// For debug, drop a list of all results so far
-		m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER conversion");
+		m_Logger.log(Level.INFO, "<"+this.getClass().getName()+">" + "Summary of Diasend Results AFTER conversion");
 		for (DBResult res : resultTreatments)
 		{
-			m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "  " + res.toString());
+			m_Logger.log(Level.INFO, "<"+this.getClass().getName()+">" + "  " + res.toString());
 		}
 
 		// Now close the workbook
@@ -555,23 +555,22 @@ public class DataLoadDiasend extends DataLoadBase
 				row = sheet.getRow(r);
 				if(row != null)
 				{
-					m_Logger.log(Level.SEVERE, "<DataLoadDiasend>" + "r = " + Integer.toString(r) + "/");
+					m_Logger.log(Level.INFO, "<DataLoadDiasend>" + "r = " + Integer.toString(r) + "/" + Integer.toString(rows));
 
 					if (r+1 == m_CGMRowDataHeaders)
 					{
 						if(row.getCell(1) != null)
-							m_Logger.log(Level.SEVERE, "hmmm... row[1]=" + row.getCell(1).toString()); // + "," + row.getCell(1).toString());
+							m_Logger.log(Level.INFO, "<DataLoadDiasend> Headers... row[1]=" + row.getCell(1).toString()); // + "," + row.getCell(1).toString());
 						DBResultEntryDiasend.initializeCGMHeaders(row);
 					}
 					else if (r+1 >= m_CGMRowDataStart)
 					{
 						if(row.getCell(1) != null)
-							m_Logger.log(Level.SEVERE, "row[1]=" + row.getCell(1).toString()); // + "," + row.getCell(1).toString());
+							m_Logger.log(Level.INFO, "<DataLoadDiasend> row[1]=" + row.getCell(1).toString()); // + "," + row.getCell(1).toString());
 						DBResultEntryDiasend res = new DBResultEntryDiasend(row);
-							rawEntryResultsFromDB.add(res);
-	//						m_Logger.log(Level.SEVERE, "<"+this.getClass().getName()+">" + "Result added for " + res.toString());
-							m_Logger.log(Level.SEVERE, "<DataLoadDiasend>" + "Result added for " + res.toString());
-				}
+						rawEntryResultsFromDB.add(res);
+						m_Logger.log(Level.INFO, "<DataLoadDiasend>" + "Result added for " + res.toString());
+					}
 				}
 			}
 		// } 
@@ -582,7 +581,11 @@ public class DataLoadDiasend extends DataLoadBase
 		
 		// Having loaded all the raw values from file, now need to traverse the collection
 		// and determine other attributes like direction, etc..
-
+		m_Logger.log(Level.INFO, "done with loadDBResultEntriesFromCGMTab");
+		for (DBResultEntry res : rawEntryResultsFromDB)
+		{
+			m_Logger.log(Level.INFO, "\t -[RESULT]" + "  " + res.toString());
+		}
 	}
 	
 	private void inferTrendsFromCGMResultEntries()
